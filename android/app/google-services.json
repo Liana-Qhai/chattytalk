@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "45413334600",
+    "project_id": "chattytalk-2bfa9",
+    "storage_bucket": "chattytalk-2bfa9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45413334600:android:c1ef9531b8051d9139a27d",
+        "android_client_info": {
+          "package_name": "com.example.chattytalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45413334600-74t39g40m4jrgg8ihj8le3ddkul28km2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF9seIFk5JptuK6f68qXFWudJ_fVBn8gM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45413334600-74t39g40m4jrgg8ihj8le3ddkul28km2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
