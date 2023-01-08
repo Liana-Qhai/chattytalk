@@ -42,15 +42,18 @@ class APIs {
     });
 
     // for handling foreground messages
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   log('Got a message whilst in the foreground!');
-    //   log('Message data: ${message.data}');
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      log('Got a message whilst in the foreground!');
+      log('Message data: ${message.data}');
 
-    //   if (message.notification != null) {
-    //     log('Message also contained a notification: ${message.notification}');
-    //   }
-    // });
+      if (message.notification != null) {
+        log('Message also contained a notification: ${message.notification}');
+      }
+    });
   }
+
+  //
+
 
   // for sending push notification
   static Future<void> sendPushNotification(
@@ -63,9 +66,9 @@ class APIs {
           "body": msg,
           "android_channel_id": "chats"
         },
-        // "data": {
-        //   "some_data": "User ID: ${me.id}",
-        // },
+        "data": {
+          "some_data": "User ID: ${me.id}",
+        },
       };
 
       var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),

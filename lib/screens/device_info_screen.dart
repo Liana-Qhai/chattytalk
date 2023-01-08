@@ -32,20 +32,31 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
+        body: SingleChildScrollView(
             child: FutureBuilder<AndroidDeviceInfo>(
       future: getInfo(),
       builder: (context, snapshot) {
         final data = snapshot.data!;
         return Column(
           children: [
+            showCard('board', data.board),
+            showCard('bootloader', data.bootloader),
             showCard('brand', data.brand),
             showCard('device', data.device),
-            showCard('model', data.model),
-            showCard('manufacturer', data.manufacturer),
-            showCard('product', data.product),
+            showCard('display', data.display),
+            showCard('fingerprint', data.fingerprint),
             showCard('hardware', data.hardware),
+            showCard('host', data.host),
+            showCard('manufacturer', data.manufacturer),
+            showCard('model', data.model),
+            showCard('product', data.product),
+            showCard('supported32BitAbis', data.supported32BitAbis.toString()),
+            showCard('supported64BitAbis', data.supported64BitAbis.toString()),
+            showCard('tags', data.tags),
+            showCard('type', data.type),
             showCard('isPhysicalDevice', data.isPhysicalDevice.toString()),
+            showCard('androidId', data.id),
+            showCard('systemFeatures', data.systemFeatures.toString()),
             showCard('version', data.version.release.toString()),
           ],
         );
