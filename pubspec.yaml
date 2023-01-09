@@ -23,6 +23,9 @@ dependencies:
  # For handling firebase authentication
   firebase_auth: ^4.2.5
 
+ # For handling firebase authentication for desktop
+  # firebase_auth_desktop: ^1.0.2
+
   # For handling google sign in
   google_sign_in: ^5.4.2
 
