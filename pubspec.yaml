@@ -26,6 +26,9 @@ dependencies:
   # For handling google sign in
   google_sign_in: ^5.4.2
 
+# For handling google sign in for web browser
+  google_sign_in_web: ^0.10.2
+
 # For accessing cloud firestore database
   cloud_firestore: ^4.3.1
 
@@ -44,11 +47,14 @@ dependencies:
 # For accessing firebase messaging (Push Notification)
   firebase_messaging: ^14.2.1
 
- # For calling RestAPIs
+ # For calling RestAPIs / Interact with API
   http: ^0.13.5
 
   # For creating notification channel
   flutter_notification_channel: ^2.0.0
+
+  # For local notification channel
+  flutter_local_notifications: ^13.0.0
 
  # For storing images into gallery
   gallery_saver: ^2.3.2

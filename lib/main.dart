@@ -5,9 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_notification_channel/flutter_notification_channel.dart';
 import 'package:flutter_notification_channel/notification_importance.dart';
 import 'package:chattytalk/screens/splash_screen.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 
 //global object for accessing device screen size
 late Size mq;
@@ -64,8 +65,8 @@ _initializeFirebase() async {
       importance: NotificationImportance.IMPORTANCE_HIGH,
       name: 'Chats');
   log('\nNotification Channel Result: $result');
+  
 }
-
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   // If you're going to use other Firebase services in the background, such as Firestore,
 //   // make sure you call `initializeApp` before using other Firebase services.

@@ -38,6 +38,11 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-messaging.js"></script>
+
+
 </head>
 <body>
   <script>
@@ -53,6 +58,30 @@
         return appRunner.runApp();
       });
     });
+  </script>
+  <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCGWhwnIdOmBbp8cIg_1A8bDleiE6aSOt0",
+        authDomain: "chattytalk-2bfa9.firebaseapp.com",
+        projectId: "chattytalk-2bfa9",
+        storageBucket: "chattytalk-2bfa9.appspot.com",
+        messagingSenderId: "45413334600",
+        appId: "1:45413334600:web:b74e35bf276a891f39a27d",
+        measurementId: "G-N69ZFDVKFQ"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+  
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/firebase-messaging-sw.js");
+        });
+      }
   </script>
 </body>
 </html>
