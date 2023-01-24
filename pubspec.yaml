@@ -68,6 +68,8 @@ dependencies:
   # For getting device info
   device_info_plus: ^8.0.0
 
+  shared_preferences: ^2.0.15
+
  # simple storage for data
   # shared_preferences: ^2.0.15
 

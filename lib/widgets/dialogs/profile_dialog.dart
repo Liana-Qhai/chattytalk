@@ -10,6 +10,7 @@ class ProfileDialog extends StatelessWidget {
   const ProfileDialog({super.key, required this.user});
 
   final ChatUser user;
+  
 
   @override
   Widget build(BuildContext context) {

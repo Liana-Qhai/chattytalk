@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'ChittyTalk',
+        title: 'ChattyTalk',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             appBarTheme: const AppBarTheme(

@@ -63,4 +63,50 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
       },
     )));
   }
+
 }
+
+//  class DeviceInfo {
+//   DeviceInfo({
+//     required this.board,
+//     required this.bootloader,
+//     required this.brand,
+//     required this.device,
+//     required this.display,
+//     required this.fingerprint,
+//     required this.hardware,
+//     required this.host,
+//     required this.manufacturer,
+//     required this.model,
+//     required this.product,
+//     required this.supported32BitAbis,
+//     required this.supported64BitAbis,
+//     required this.tags,
+//     required this.type,
+//     required this.isPhysicalDevice,
+//     required this.id,
+//     required this.systemFeatures,
+//     required this.versionRelease,
+
+//   });
+//   late String board;
+//   late String bootloader;
+//   late String brand;
+//   late String device;
+//   late String display;
+//   late String fingerprint;
+//   late String hardware;
+//   late String host;
+//   late String manufacturer;
+//   late String model;
+//   late String product;
+//   late String supported32BitAbis;
+//   late String supported64BitAbis;
+//   late String tags;
+//   late String type;
+//   late String isPhysicalDevice;
+//   late String id;
+//   late String systemFeatures;
+//   late String versionRelease;
+    
+//   }

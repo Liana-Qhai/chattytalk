@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
 
 import '../models/chat_user.dart';
+import '../models/chat_group.dart';
 import '../models/message.dart';
 
 class APIs {
@@ -24,8 +25,14 @@ class APIs {
   // for storing self information
   static late ChatUser me;
 
+  // for storing group information
+  static late ChatGroup grp;
+
   // to return current user
   static User get user => auth.currentUser!;
+
+  // to return current group
+  static User get group => auth.currentUser!;
 
   // for accessing firebase messaging (Push Notification)
   static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
@@ -37,6 +44,7 @@ class APIs {
     await fMessaging.getToken().then((t) {
       if (t != null) {
         me.fcmID = t;
+        grp.fcmID = t;
         log('FCM ID: $t');
       }
     });
@@ -51,9 +59,6 @@ class APIs {
       }
     });
   }
-
-  //
-
 
   // for sending push notification
   static Future<void> sendPushNotification(
@@ -90,6 +95,11 @@ class APIs {
     return (await firestore.collection('users').doc(user.uid).get()).exists;
   }
 
+   // for checking if group exists or not?
+  static Future<bool> groupExists() async {
+    return (await firestore.collection('groups').doc(group.uid).get()).exists;
+  }
+
   // for getting current user info
   static Future<void> getSelfInfo() async {
     await firestore.collection('users').doc(user.uid).get().then((user) async {
@@ -105,6 +115,22 @@ class APIs {
       }
     });
   }
+
+  // for getting current group info
+  // static Future<void> getGroupInfo() async {
+  //   await firestore.collection('groups').doc(group.uid).get().then((group) async {
+  //     if (group.exists) {
+  //       grp = ChatGroup.fromJson(group.data()!);
+  //       await getFirebaseMessagingToken();
+
+  //       //for setting group status to active
+  //       APIs.updateActiveStatus(true);
+  //       log('My Data: ${group.data()}');
+  //     } else {
+  //       await createGroup().then((value) => getSelfInfo());
+  //     }
+  //   });
+  // }
 
   // for creating a new user
   static Future<void> createUser() async {
@@ -127,11 +153,39 @@ class APIs {
         .set(chatUser.toJson());
   }
 
+  // for creating a new group
+  static Future<void> createGroup() async {
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
+
+    final chatGroup = ChatGroup(
+        id: group.uid,
+        about: "Hey, I'm using Chatty Talk App!",
+        name: group.displayName.toString(),
+        image: group.photoURL.toString(),
+        createdAt: time,
+        isOnline: false,
+        lastActive: time,
+        fcmID: '');
+
+    return await firestore
+        .collection('group')
+        .doc(group.uid)
+        .set(chatGroup.toJson());
+  }
+
   // for getting all users from firestore database
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers() {
     return firestore
         .collection('users')
         .where('id', isNotEqualTo: user.uid)
+        .snapshots();
+  }
+
+  // for getting all groups from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllGroups() {
+    return firestore
+        .collection('groups')
+        .where('id', isNotEqualTo: group.uid)
         .snapshots();
   }
 
@@ -176,12 +230,30 @@ class APIs {
         .snapshots();
   }
 
+   // for getting specific group info
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getGroupInfo(
+      ChatGroup chatGroup) {
+    return firestore
+        .collection('groups')
+        .where('id', isEqualTo: chatGroup.id)
+        .snapshots();
+  }
+
   // update online or last active status of user
   static Future<void> updateActiveStatus(bool isOnline) async {
     firestore.collection('users').doc(user.uid).update({
       'is_online': isOnline,
       'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
       'fcm_id': me.fcmID,
+    });
+  }
+
+  // update online or last active status of group
+  static Future<void> updateActiveStatusGroup(bool isOnline) async {
+    firestore.collection('groups').doc(user.uid).update({
+      'is_online': isOnline,
+      'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
+      'fcm_id': grp.fcmID,
     });
   }
 

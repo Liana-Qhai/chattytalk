@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "chattytalk with web port 5000",
+            "name": "chattytalk",
             "request": "launch",
             "type": "dart",
             // "args":["--web-port", "5000"]

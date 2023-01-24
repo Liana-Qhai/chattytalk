@@ -1,9 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
 import '../api/apis.dart';
 import '../main.dart';
@@ -25,8 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // for storing searched items
   final List<ChatUser> _searchList = [];
+
   // for storing search status
   bool _isSearching = false;
+
+  // for storing loading status
+  bool _isLoading = false;
+
+  // for create group name
+  String groupName = "";
 
   @override
   void initState() {
@@ -121,16 +130,28 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
 
-          //floating button to add new user
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: FloatingActionButton(
-                onPressed: () async {
-                  await APIs.auth.signOut();
-                  await GoogleSignIn().signOut();
-                },
-                child: const Icon(Icons.add_comment_rounded)),
+          //floating button to add group
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              popUpDialog(context);
+            },
+            elevation: 0,
+            backgroundColor: Theme.of(context).primaryColor,
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 30,
+            ),
           ),
+          // floatingActionButton: Padding(
+          //   padding: const EdgeInsets.only(bottom: 10),
+          //   child: FloatingActionButton(
+          //       onPressed: () async {
+          //         await APIs.auth.signOut();
+          //         await GoogleSignIn().signOut();
+          //       },
+          //       child: const Icon(Icons.add_comment_rounded)),
+          // ),
 
           //body
           body: StreamBuilder(
@@ -177,4 +198,94 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  popUpDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: ((context, setState) {
+            return AlertDialog(
+              title: const Text(
+                "Create a group",
+                textAlign: TextAlign.left,
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _isLoading == true
+                      ? Center(
+                          child: CircularProgressIndicator(
+                              color: Theme.of(context).primaryColor),
+                        )
+                      : TextField(
+                          onChanged: (val) {
+                            setState(() {
+                              groupName = val;
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).primaryColor),
+                                  borderRadius: BorderRadius.circular(20)),
+                              errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.red),
+                                  borderRadius: BorderRadius.circular(20)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).primaryColor),
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor),
+                  child: const Text("CANCEL"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                   if (groupName != "") {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      Navigator.of(context).pop();
+                      showSnackbar(
+                        context, Colors.green, "Group created successfully.");
+                    }     
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor),
+                  child: const Text("CREATE"),
+                )
+              ],
+            );
+          }));
+        });
+  }
+}
+
+void showSnackbar(context, color, message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 14),
+      ),
+      backgroundColor: color,
+      duration: const Duration(seconds: 2),
+      action: SnackBarAction(
+        label: "OK",
+        onPressed: () {},
+        textColor: Colors.white,
+      ),
+    ),
+  );
 }
